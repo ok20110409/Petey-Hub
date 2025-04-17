@@ -1,0 +1,746 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+
+local Window = Rayfield:CreateWindow({
+   Name = "Petey Hub",
+   Icon = 128669381280559, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Petey Hub",
+   LoadingSubtitle = "by Petey",
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "https://discord.gg/utmzdFDMW3", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Petey Hub",
+      Subtitle = "Key System",
+      Note = "To get key join discord: https://discord.gg/utmzdFDMW3", -- Use this to tell the user how to get a key
+      FileName = "Keyz", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is , set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"P3teY"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Character") -- Title, Image
+local Section = Tab:CreateSection("Player")
+
+local Button = Tab:CreateButton({
+   Name = "Fullbright",
+   Callback = function()
+   if not _G.FullBrightExecuted then
+
+	_G.FullBrightEnabled = false
+
+	_G.NormalLightingSettings = {
+		Brightness = game:GetService("Lighting").Brightness,
+		ClockTime = game:GetService("Lighting").ClockTime,
+		FogEnd = game:GetService("Lighting").FogEnd,
+		GlobalShadows = game:GetService("Lighting").GlobalShadows,
+		Ambient = game:GetService("Lighting").Ambient
+	}
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("Brightness"):Connect(function()
+		if game:GetService("Lighting").Brightness ~= 1 and game:GetService("Lighting").Brightness ~= _G.NormalLightingSettings.Brightness then
+			_G.NormalLightingSettings.Brightness = game:GetService("Lighting").Brightness
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").Brightness = 1
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(function()
+		if game:GetService("Lighting").ClockTime ~= 12 and game:GetService("Lighting").ClockTime ~= _G.NormalLightingSettings.ClockTime then
+			_G.NormalLightingSettings.ClockTime = game:GetService("Lighting").ClockTime
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").ClockTime = 12
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("FogEnd"):Connect(function()
+		if game:GetService("Lighting").FogEnd ~= 786543 and game:GetService("Lighting").FogEnd ~= _G.NormalLightingSettings.FogEnd then
+			_G.NormalLightingSettings.FogEnd = game:GetService("Lighting").FogEnd
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").FogEnd = 786543
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("GlobalShadows"):Connect(function()
+		if game:GetService("Lighting").GlobalShadows ~= false and game:GetService("Lighting").GlobalShadows ~= _G.NormalLightingSettings.GlobalShadows then
+			_G.NormalLightingSettings.GlobalShadows = game:GetService("Lighting").GlobalShadows
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").GlobalShadows = false
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("Ambient"):Connect(function()
+		if game:GetService("Lighting").Ambient ~= Color3.fromRGB(178, 178, 178) and game:GetService("Lighting").Ambient ~= _G.NormalLightingSettings.Ambient then
+			_G.NormalLightingSettings.Ambient = game:GetService("Lighting").Ambient
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+		end
+	end)
+
+	game:GetService("Lighting").Brightness = 1
+	game:GetService("Lighting").ClockTime = 12
+	game:GetService("Lighting").FogEnd = 786543
+	game:GetService("Lighting").GlobalShadows = false
+	game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+
+	local LatestValue = true
+	spawn(function()
+		repeat
+			wait()
+		until _G.FullBrightEnabled
+		while wait() do
+			if _G.FullBrightEnabled ~= LatestValue then
+				if not _G.FullBrightEnabled then
+					game:GetService("Lighting").Brightness = _G.NormalLightingSettings.Brightness
+					game:GetService("Lighting").ClockTime = _G.NormalLightingSettings.ClockTime
+					game:GetService("Lighting").FogEnd = _G.NormalLightingSettings.FogEnd
+					game:GetService("Lighting").GlobalShadows = _G.NormalLightingSettings.GlobalShadows
+					game:GetService("Lighting").Ambient = _G.NormalLightingSettings.Ambient
+				else
+					game:GetService("Lighting").Brightness = 1
+					game:GetService("Lighting").ClockTime = 12
+					game:GetService("Lighting").FogEnd = 786543
+					game:GetService("Lighting").GlobalShadows = false
+					game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+				end
+				LatestValue = not LatestValue
+			end
+		end
+	end)
+end
+
+_G.FullBrightExecuted = true
+_G.FullBrightEnabled = not _G.FullBrightEnabled
+   end,
+})
+
+local Section = Tab:CreateSection("u can get from infinity Yeild speed,noclip")
+
+local Button = Tab:CreateButton({
+   Name = "Infinity yeild ♾️",
+   Callback = function()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   end,
+})
+
+
+
+
+local Tab = Window:CreateTab("Visual") -- Title, Image
+
+
+local Section = Tab:CreateSection("Esp")
+
+local Button = Tab:CreateButton({
+   Name = "Esp Doors",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'Door' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Door" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    local hue = tick() % 5 / 5 
+                    local color = Color3.fromHSV(hue, 1, 1)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+
+local Button = Tab:CreateButton({
+   Name = "Safe Locker Esp",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'Locker' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Safe Locker" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    
+                    local color = Color3.fromRGB(0,255,0)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+
+local Button = Tab:CreateButton({
+   Name = "Rush Esp",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'Rush' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Rush" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    
+                    local color = Color3.fromRGB(255,0,0)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+
+local Button = Tab:CreateButton({
+   Name = "Decoy Locker Esp",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'decoyLocker' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Decoy Locker" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    
+                    local color = Color3.fromRGB(255,0,0)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Oxygen Tanks Esp",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('MeshPart') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'OxygenTank' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Oxygen Tank" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    
+                    local color = Color3.fromRGB(0,255,255)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Ram Esp",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'Ram' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Ram" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    
+                    local color = Color3.fromRGB(255,165,0)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+
+local Section = Tab:CreateSection("Door 150")
+local Button = Tab:CreateButton({
+   Name = "Levers Esp",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'Lever' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Lever" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    
+                    local color = Color3.fromRGB(255,255,255)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+
+local Button = Tab:CreateButton({
+   Name = "The Watcher Esp",
+   Callback = function()
+   -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Table to keep track of highlighted objects
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+    if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'WanderWatcher' then
+        -- Check if the object is not already highlighted
+        if not highlightedObjects[obj] then
+            if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+                local BillboardGui = Instance.new('BillboardGui')
+                local TextLabel = Instance.new('TextLabel')
+
+                BillboardGui.Parent = obj.Parent
+                BillboardGui.AlwaysOnTop = true
+                BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+                BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.BackgroundTransparency = 1
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.Text = "Watcher" -- Display text
+                TextLabel.TextScaled = true
+                TextLabel.TextStrokeTransparency = 0.5 -- Text stroke for visibility
+
+                -- Removed the initial rotation check and related logic
+
+                local function updateColors()
+                    
+                    local color = Color3.fromRGB(255,0,0)
+                    TextLabel.TextColor3 = color
+                end
+
+                -- Keep updating colors without rotation check
+                RunService.RenderStepped:Connect(updateColors)
+
+                highlightedObjects[obj] = true
+            end
+        end
+    end
+end
+
+-- Function to batch handle all existing objects
+local function handleExistingObjects()
+    for _, obj in ipairs(game.Workspace:GetDescendants()) do
+        handleNewObject(obj)
+    end
+end
+
+game.Workspace.ChildAdded:Connect(function(child)
+    handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+    lastCheck = lastCheck + deltaTime
+    if lastCheck >= 0.5 then
+        handleExistingObjects()
+        lastCheck = 0
+    end
+end)
+
+handleExistingObjects()
+   end,
+})
+
+
+local Label = Tab:CreateLabel("More Coming Soon", Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
