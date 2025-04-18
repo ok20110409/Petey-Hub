@@ -48,7 +48,53 @@ m.StaminaGain = 15
 
 
 
+
+
 m.StaminaLoss = 0
 m.SprintSpeed = 29
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Esp Items",
+   Callback = function()
+   local function highlighttools(state)
+        toolhighlightActive = state
+        
+        local function applyHighlight(tool)
+            if toolhighlightActive then
+                local existinghighlight = tool:FindFirstChild("ToolHighlight")
+                if not existinghighlight then
+                    local toolhighlight = Instance.new("Highlight")
+                    toolhighlight.Name = "ToolHighlight"
+                    toolhighlight.Parent = tool
+                    toolhighlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    
+                    if tool.Name == "Medkit" then
+                        toolhighlight.FillColor = Color3.fromRGB(0, 255, 0)
+                    elseif tool.Name == "BloxyCola" then
+                        toolhighlight.FillColor = Color3.fromRGB(88, 57, 39)
+                    end
+                end
+            else
+                local existinghighlight = tool:FindFirstChild("ToolHighlight")
+                if existinghighlight then
+                    existinghighlight:Destroy()
+                end
+            end
+        end
+        
+        for _, v in pairs(game.Workspace.Map.Ingame:GetChildren()) do
+            if v:IsA("Tool") then
+                applyHighlight(v)
+            end
+        end
+        
+        game.Workspace.Map.Ingame.ChildAdded:Connect(function(child)
+            if child:IsA("Tool") then
+                applyHighlight(child)
+            end
+        end)
+    end
    end,
 })
