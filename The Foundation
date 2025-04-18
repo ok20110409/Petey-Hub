@@ -755,7 +755,7 @@ local CollectionService = game:GetService("CollectionService")
 local highlightedObjects = {}
 
 local function handleNewObject(obj)
-    if obj:IsA('MesgPart') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'Outer' then
+    if obj:IsA('MeshPart') and obj.Parent and obj.Parent:IsA('Model') and obj.Parent.Name == 'Outer' then
         -- Check if the object is not already highlighted
         if not highlightedObjects[obj] then
             if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
