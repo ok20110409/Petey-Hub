@@ -1,3 +1,5 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
 local Window = Rayfield:CreateWindow({
    Name = "Petey Hub",
    Icon = 128669381280559, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
@@ -34,3 +36,10 @@ local Window = Rayfield:CreateWindow({
 
 local Tab = Window:CreateTab("Character", 75675616443469) -- Title, Image
 local Section = Tab:CreateSection("Player")
+
+local Button = Tab:CreateButton({
+   Name = "Button Example",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   end,
+})
